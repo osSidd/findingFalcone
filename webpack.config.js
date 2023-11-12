@@ -3,5 +3,38 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-
+    entry: './src/index.tsx',
+    mode: 'development',
+    module: {
+        rules:[
+            {
+                test:/\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                loader:'babel-loader',
+                options:{presets: ["@babel/env", "@babel/preset-react"]}
+            },
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader',
+            }
+        ]
+    },
+    resolve: {extensions: ["*", ".jsx", ".js", ".tsx", ".ts"]},
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist',
+        filename: 'bundle.js',
+        clean: true,
+    },
+    devServer:{
+        static: {
+            directory: path.join(__dirname,  'public'),
+        },
+        compress: true,
+        port: 9000,
+    },
+    plugins: [new webpack.HotModuleReplacementPlugin(), new HtmlWebpackPlugin({
+        template: './public/index.html',
+    })]
 }
