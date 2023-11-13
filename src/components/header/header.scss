@@ -1,0 +1,6 @@
+@use '../../styles/base';
+
+.app-heading{
+    color: base.$main-text-color;
+    font-size: 3rem;
+}

@@ -1,0 +1,31 @@
+.planet-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.fig-container{
+    margin:0 1rem;
+}
+
+.figure{
+    cursor: pointer;
+    margin: 0;
+    text-align: center;
+
+    figcaption{
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+}
+
+.planet-img, .vehicle-img{
+    width: 124px;
+    transition: transform 0.35s ease-in-out;
+}
+
+.disable{
+    opacity:0.15;
+    cursor: default;
+}
