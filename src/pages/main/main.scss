@@ -1,8 +1,10 @@
 .planet-container{
+    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    background-color: teal;
 }
 
 .fig-container{
