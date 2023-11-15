@@ -9,7 +9,7 @@ type planetObj = {
     name: string,
     distance: number,
     clicked:boolean,
-    vehicle: string,
+    vehicle: string[],
 }
 
 type vehicleObj = {
@@ -17,6 +17,7 @@ type vehicleObj = {
     total_no: number,
     max_distance: number,
     speed: number,
+    img:string,
 }
 
 export default function useFetch(){  
@@ -32,7 +33,7 @@ export default function useFetch(){
             const response = await fetch('https://findfalcone.geektrust.com/planets', {mode: 'cors'})
             if(response.ok){
                 const data = await response.json()
-                setPlanet(data.map((item:planetObj) => ({...item, clicked: false, vehicle: ''})))
+                setPlanet(data.map((item:planetObj) => ({...item, clicked: false, vehicle: []})))
             }
         }catch(err){
             console.log(err)
@@ -57,7 +58,7 @@ export default function useFetch(){
             const response = await fetch('https://findfalcone.geektrust.com/vehicles', {mode: 'cors'})
             if(response.ok){
                 const data = await response.json()
-                setVehicles(data)
+                setVehicles(data.map((item:vehicleObj,i:number) => ({...item, img: vArr[i]})))
                 console.log(data)
             }
         }catch(err){
@@ -74,15 +75,34 @@ export default function useFetch(){
     }
 
     function handleDrop(e:React.DragEvent){
+        
         const index = parseInt(e.dataTransfer.getData('text'))
-        let id = ''
-        if(e.target instanceof HTMLElement)
-            id = e.target.id
-    
+        
+        let id = 0
+        let dist = 0 
+
+        if(e.target instanceof HTMLElement){
+            id = parseInt(e.target.id)
+            dist = parseInt(e.target.dataset.dist!)
+        }
+
+        if(dist > vehicles[index].max_distance) return 
+
         setPlanet(prev => prev.map((item, i)=> ({
             ...item,
-            vehicle: i === parseInt(id) ? vArr[index] : item.vehicle
+            vehicle: i === id ? [...item.vehicle, vehicles[index].img] : item.vehicle
         })))
+
+        setVehicles(prev => {
+            let arr:vehicleObj[] = []
+            prev.forEach((item, i) => {
+                if(i === index){
+                   if(item.total_no > 1) arr.push({...item, total_no: item.total_no - 1})
+                }
+                else arr.push(item)
+            })
+            return arr
+        })
     }
 
     return {
@@ -92,7 +112,6 @@ export default function useFetch(){
         handleDragOver,
         handleDragStart,
         handleDrop,
-        vArr,
         selectPlanet,
         addVehicles,
     }

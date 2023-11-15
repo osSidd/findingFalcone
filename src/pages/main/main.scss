@@ -1,10 +1,8 @@
 .planet-container{
-    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    background-color: teal;
 }
 
 .fig-container{
@@ -30,4 +28,11 @@
 .disable{
     opacity:0.15;
     cursor: default;
+}
+
+.drop-vehicle{
+    min-height: 25vh;
+    display: flex;
+    flex-direction: column;
+    border:1px dashed #ccc;
 }

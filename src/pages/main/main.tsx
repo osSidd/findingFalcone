@@ -12,12 +12,13 @@ import p6 from '../../assets/planets/planet6.png'
 
 export default function Main(){
 
-    const {planet, vehicles, planetCount, vArr, handleDragOver, handleDrop, handleDragStart, selectPlanet, addVehicles} = useFetch()
+    const {planet, vehicles, planetCount, handleDragOver, handleDrop, handleDragStart, selectPlanet, addVehicles} = useFetch()
     const pArr = [p1, p2, p3, p4, p5, p6]
 
     return (
         <section> 
             <button onClick={addVehicles}>select vehicles</button>
+            <div className="planet-container">
             {
                 vehicles.length && vehicles.map((v, i) => (
                     <div key={v.name}>
@@ -25,7 +26,7 @@ export default function Main(){
                             draggable
                             onDragStart={e => handleDragStart(e, i)} 
                             className="vehicle-img" 
-                            src={vArr[i]} 
+                            src={v.img} 
                             alt="vehicle" 
                         />
                         <figcaption>{v.name}</figcaption>
@@ -35,12 +36,16 @@ export default function Main(){
                     </div>
                 ))
             }
-
+            </div>
+            
+            <div className="planet-container">
             {planet.length && planet.map((d, i) => {
                return (
-                <div className="fig-container" key={d.name} onDragOver={handleDragOver} onDrop={handleDrop}>
+                <div className="fig-container" key={d.name} onDragOver={d.clicked ? handleDragOver: undefined} onDrop={d.clicked ? handleDrop : undefined}>
                     <figure className={`figure ${planetCount >= 4 && !d.clicked && 'disable'}`}>
-                        <img 
+                        <img
+                            id={`${i}`}
+                            data-dist={d.distance}
                             onClick={planetCount < 4 && !d.clicked ? e => {selectPlanet(e, d.name, i)}: undefined} 
                             className="planet-img" 
                             src={pArr[i]} 
@@ -49,12 +54,13 @@ export default function Main(){
                         <figcaption>{d.name}</figcaption>
                         <figcaption>{d.distance} mm</figcaption>
                     </figure>
-                    <div>
-                       { d.vehicle && <img className="vehicle-img" src={d.vehicle} alt='vehicle'/> }
+                    <div className="drop-vehicle">
+                       { d.vehicle.map(item => <img className="vehicle-img" src={item} alt='vehicle'/> )}
                     </div>
                 </div>
                 )
             })}
+            </div>
         </section>
     )
 }
