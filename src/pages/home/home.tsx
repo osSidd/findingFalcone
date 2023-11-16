@@ -4,10 +4,10 @@ import './home.scss'
 
 export default function Home(){
 
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
 
     function goTo(e: React.SyntheticEvent): void{
-        navigate('/find')
+       // navigate('/find')
     }
 
     return (

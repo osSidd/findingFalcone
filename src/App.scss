@@ -32,9 +32,9 @@ button{
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.25s ease-in-out;
-    &:hover{
-        background-color: base.$main-text-color;
-        border: 1px solid steelblue;
-        color: steelblue;
-    }
+    // &:hover{
+    //     background-color: base.$main-text-color;
+    //     border: 1px solid steelblue;
+    //     color: steelblue;
+    // }
 }

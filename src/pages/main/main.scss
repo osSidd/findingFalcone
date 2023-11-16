@@ -1,4 +1,9 @@
-.planet-container{
+// .main-section{
+//     // display: flex;
+//     // align-items: center;
+// }
+
+.planet-container, .vehicle-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,5 +39,16 @@
     min-height: 25vh;
     display: flex;
     flex-direction: column;
-    border:1px dashed #ccc;
+    justify-content: center;
+}
+
+.vehicles{
+    margin:0 1rem;
+    text-align: center;
+}
+
+.result-btn{
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
 }

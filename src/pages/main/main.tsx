@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import './main.scss';
-import useFetch from "../../hooks/useFetch";
 
 import p1 from '../../assets/planets/planet1.png'
 import p2 from '../../assets/planets/planet2.png'
@@ -9,19 +8,36 @@ import p4 from '../../assets/planets/planet4.png'
 import p5 from '../../assets/planets/planet5.png'
 import p6 from '../../assets/planets/planet6.png'
 
+import { mainObj } from "../../customTypes/types";
 
-export default function Main(){
+type Props = {
+    main : mainObj
+}
 
-    const {planet, vehicles, planetCount, handleDragOver, handleDrop, handleDragStart, selectPlanet, addVehicles} = useFetch()
+export default function Main({main}:Props){
+
+    const {
+        planets,
+        planetCount,
+        vehicles,
+        planetReached,
+        timeTaken,
+        handleDragOver,
+        handleDragStart,
+        handleDrop,
+        selectPlanet,
+        getResult,
+    } = main
+
     const pArr = [p1, p2, p3, p4, p5, p6]
 
     return (
-        <section> 
-            <button onClick={addVehicles}>select vehicles</button>
-            <div className="planet-container">
+        <section className="main-section"> 
+            <p>Time Taken {timeTaken}</p>
+            <div className="vehicle-container">
             {
-                vehicles.length && vehicles.map((v, i) => (
-                    <div key={v.name}>
+                vehicles.length ? vehicles.map((v, i) => (
+                    <div className="vehicles" key={v.name}>
                         <img
                             draggable
                             onDragStart={e => handleDragStart(e, i)} 
@@ -34,33 +50,49 @@ export default function Main(){
                         <figcaption>total {v.total_no}</figcaption>
                         <figcaption>speed {v.speed}</figcaption>
                     </div>
-                ))
+                )) : null
             }
             </div>
             
             <div className="planet-container">
-            {planet.length && planet.map((d, i) => {
-               return (
-                <div className="fig-container" key={d.name} onDragOver={d.clicked ? handleDragOver: undefined} onDrop={d.clicked ? handleDrop : undefined}>
-                    <figure className={`figure ${planetCount >= 4 && !d.clicked && 'disable'}`}>
-                        <img
-                            id={`${i}`}
-                            data-dist={d.distance}
-                            onClick={planetCount < 4 && !d.clicked ? e => {selectPlanet(e, d.name, i)}: undefined} 
-                            className="planet-img" 
-                            src={pArr[i]} 
-                            alt="planet"
-                        />
-                        <figcaption>{d.name}</figcaption>
-                        <figcaption>{d.distance} mm</figcaption>
-                    </figure>
-                    <div className="drop-vehicle">
-                       { d.vehicle.map(item => <img className="vehicle-img" src={item} alt='vehicle'/> )}
+            {
+                planets.length ? planets.map((d, i) => {
+                return (
+                    <div 
+                        className="fig-container" 
+                        key={d.name} 
+                        onDragOver={d.clicked ? handleDragOver: undefined} 
+                        onDrop={d.clicked ? handleDrop : undefined}
+                    >
+                        <figure className={`figure ${planetCount >= 4 && !d.clicked && 'disable'}`}>
+                            <img
+                                id={`${i}`}
+                                data-dist={d.distance}
+                                onClick={planetCount < 4 && !d.clicked ? e => {selectPlanet(e, d.name, i)}: undefined} 
+                                className="planet-img" 
+                                src={pArr[i]} 
+                                alt="planet"
+                            />
+                            <figcaption>{d.name}</figcaption>
+                            <figcaption>{d.distance} mm</figcaption>
+                        </figure>
+                        <div className="drop-vehicle">
+                        { d.vehicle && <img className="vehicle-img" src={d.vehicle} alt='vehicle' key={i}/> }
+                        </div>
                     </div>
-                </div>
-                )
-            })}
+                    )
+                }) : null
+            }
             </div>
+            
+            <button 
+                onClick={getResult} 
+                disabled={planetReached.length < 4 ? true : false} 
+                className="result-btn"
+            >
+                see result
+            </button>
+
         </section>
     )
 }
