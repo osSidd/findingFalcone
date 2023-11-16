@@ -28,7 +28,7 @@ export type mainObj = {
     handleDragStart: (e: React.DragEvent, index: number) => void;
     handleDrop: (e: React.DragEvent) => void;
     selectPlanet: (e: React.SyntheticEvent, name: string, index: number) => void;
-    getResult: () => Promise<void>;
+    reset: () => void
 }
 
 export type resultObj = {
@@ -38,6 +38,7 @@ export type resultObj = {
 }
 
 export type result = {
-    result: resultObj,
+    getResult: () => Promise<resultObj>
     timeTaken: number,
+    reset: () => void
 }

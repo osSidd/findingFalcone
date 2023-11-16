@@ -5,6 +5,7 @@ import './App.scss'
 import useFetch from "./hooks/useFetch"
 
 import Header from "./components/header/header"
+import Footer from "./components/footer/footer"
 const Home = React.lazy(() => import('./pages/home/home'))
 const Main = React.lazy(() => import('./pages/main/main'))
 const Result = React.lazy(() => import('./pages/result/result'))
@@ -18,19 +19,18 @@ export default function App(){
         <div className="App">
             <Header/>
             <main>
-                {/* <Home/> */}
-                <Main main={main}/>
-                <Result result={result}/>
-            {/* <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
                 <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<Home/>}/>
-                            <Route path="find" element={<Main/>}/>
+                            <Route path="find" element={<Main main={main}/>}/>
+                            <Route path="result" element={<Result result={result}/>}/>
                             <Route path="*" element={<Error/>}/>
                         </Routes>
                 </BrowserRouter>
-            </Suspense> */}
+            </Suspense>
             </main>
+            <Footer/>
         </div>
     )
 }

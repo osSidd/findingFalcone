@@ -1,0 +1,25 @@
+.result-container{
+    margin-top: 5rem;
+    text-align: center;
+    min-height: 50vh;
+
+    h2{
+        font-size: 2rem;
+        font-weight: 900;
+    }
+
+    p{
+        font-size: 1.75rem;
+    }
+
+    .btn-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5rem;
+        button{
+            margin:0 1rem;
+        }
+    }
+
+}

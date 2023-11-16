@@ -16,7 +16,6 @@ export default function useFetch(){
     const [planetReached, setPlanetReached] = useState<planetVehicle[]>([])
     const [token, setToken] = useState('')
     const [timeTaken, setTimeTaken] = useState(0)
-    const [result, setResult] = useState<resultObj>({planet_name: '', status: '', error: ''})
     
     //add planets
     async function fetchPlanets() {
@@ -33,15 +32,12 @@ export default function useFetch(){
 
     //select planet upon click
     function selectPlanet(e: React.SyntheticEvent, name:string, index:number){
-        if(e.target instanceof HTMLElement){
-            e.target.style.transform='scale(1.25)'
-        } 
         setPlanets(prev => prev.map((d, i) => ({...d, clicked: i === index ? !d.clicked : d.clicked})))
         setPlanetCount(prev => prev+1)
     }
 
     //add vehicles
-    async function addVehicles(){
+    async function fetchVehicles(){
         try{
             const response = await fetch('https://findfalcone.geektrust.com/vehicles', {mode: 'cors'})
             if(response.ok){
@@ -76,7 +72,7 @@ export default function useFetch(){
     useEffect(() => {
         fetchToken()
         fetchPlanets()
-        addVehicles()
+        fetchVehicles()
     }, [])
 
     //handle drag start event
@@ -130,6 +126,7 @@ export default function useFetch(){
 
     //get result
     async function getResult() {
+        let data:resultObj = {planet_name:'', status: '', error: ''}
         try{
             const response = await fetch('https://findfalcone.geektrust.com/find', {
                 method:'POST',
@@ -141,12 +138,23 @@ export default function useFetch(){
             })
 
             if(response.ok){
-                const data = await response.json()
-                setResult(data)
+                data = await response.json()
             }
         }catch(err){
             console.log(err)
         }
+        return data
+    }
+
+    //function to reset state and counters
+    function reset(){
+        fetchVehicles()
+        fetchToken()
+        setPlanetCount(0)
+        setPlanetReached([])
+        setPlanets(prev => prev.map(item => ({...item, vehicle: '', clicked: false})))
+        setTimeTaken(0)
+        setToken('')
     }
 
     return {
@@ -160,10 +168,11 @@ export default function useFetch(){
             handleDragStart,
             handleDrop,
             selectPlanet,
-            getResult,
+            reset,
         },
         result: {
-            result,
+            getResult,
+            reset,
             timeTaken,
         },
     }
