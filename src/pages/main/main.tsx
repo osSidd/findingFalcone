@@ -10,6 +10,7 @@ import p6 from '../../assets/planets/planet6.png'
 
 import { mainObj } from "../../customTypes/types";
 import { useNavigate } from "react-router-dom";
+import ErrorBoundary from "../../errorBoundary/errorBoundary";
 
 type Props = {
     main : mainObj
@@ -44,6 +45,7 @@ export default function Main({main}:Props){
     }
 
     return (
+        <ErrorBoundary>
         <section className="main-section"> 
 
             <div className="btn-container">
@@ -117,6 +119,7 @@ export default function Main({main}:Props){
             </button>
             <small>(distance unit - megamiles / speed unit - megamiles/hour)</small>
         </section>
+        </ErrorBoundary>
     )
 }
 

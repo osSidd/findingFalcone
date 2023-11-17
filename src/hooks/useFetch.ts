@@ -89,7 +89,9 @@ export default function useFetch(){
     function handleDrop(e:React.DragEvent){
         
         const index = parseInt(e.dataTransfer.getData('text'))
-        
+    
+        if(isNaN(index)) return
+
         let id = 0
         let dist = 0
         let planet = ''

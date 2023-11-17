@@ -3,6 +3,7 @@ import './result.scss'
 
 import { result, resultObj } from '../../customTypes/types'
 import { useNavigate } from 'react-router-dom'
+import ErrorBoundary from '../../errorBoundary/errorBoundary'
 
 type Props = {
     result: result
@@ -34,6 +35,7 @@ export default function Result({result}: Props){
     }
 
     return (
+        <ErrorBoundary>
         <div className='result-container'>
             {
                res.status && 
@@ -49,5 +51,6 @@ export default function Result({result}: Props){
                 <button onClick={() => {goTo('/find')}}>play again</button>
             </div>
         </div>
+        </ErrorBoundary>
     )
 }
