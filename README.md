@@ -10,8 +10,6 @@ Upon selecting planets and assigning vehicles the user can view the result (a ga
     (to install all the required packages)<br/><br/>
 3. run the command 'npm run dev' <br/>
     (this command runs a local development server)<br/><br/>
-4. use the command 'npm run build'<br/>
-    (to build a production version of the app)<br/><br/>
 
 ## How to play the game
 - First select 4 planets by clicking them

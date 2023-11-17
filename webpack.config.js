@@ -5,7 +5,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
     entry: './src/index.tsx',
-    mode: 'production',
+    mode: 'development',
     module: {
         rules:[
             {
@@ -32,7 +32,7 @@ module.exports = {
     resolve: {extensions: ["*", ".jsx", ".js", ".tsx", ".ts"]},
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
+        publicPath: '/dist',
         filename: 'bundle.js',
         clean: true,
     },
