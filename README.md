@@ -31,3 +31,9 @@ Upon selecting planets and assigning vehicles the user can view the result (a ga
 ## Learning
 I used typescript to build this app, thus it provided nice opportunity to learn about some of its features like making custom types and using typescript in React.<br/><br/>
 Also I learned about using drag and drop functionality without using any external library.
+
+## Tasks Left
+- [ ] Adding tests (RTL, JEST, Enzyme)
+- [ ] Deploying (current version not working)
+- [ ] code splitting not working in deployed app
+- [ ] tweak webpack.config.js for production build
