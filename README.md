@@ -34,6 +34,7 @@ Also I learned about using drag and drop functionality without using any externa
 
 ## Tasks Left
 - [ ] Adding tests (RTL, JEST, Enzyme)
-- [ ] Deploying (current version not working)
-- [ ] code splitting not working in deployed app
-- [ ] tweak webpack.config.js for production build
+- [ ] Find solution for deployment so that dist folder doesn't needs to be uploaded on git repo
+- [x] Deploying (current version not working)
+- [x] code splitting not working in deployed app
+- [x] tweak webpack.config.js for production build
